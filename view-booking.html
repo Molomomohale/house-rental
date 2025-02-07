@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Your Booking</title>
+    <link rel="stylesheet" href="client-search.css"> <!-- Client Search CSS -->
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>View Your Booking</h1>
+        </div>
+    </header>
+
+    <section id="client-search" class="search-section">
+        <div class="container">
+            <h2>Enter your email or phone number to view your booking</h2>
+            <form id="searchForm">
+                <label for="contact">Email or Phone:</label>
+                <input type="text" id="contact" name="contact" required><br>
+
+                <button type="submit">Search</button>
+            </form>
+        </div>
+    </section>
+
+    <section id="booking-details" class="booking-details">
+        <div class="container">
+            <h2>Your Booking Details</h2>
+            <div id="details-container">
+                <!-- Booking details will be displayed here -->
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 House Rental System</p>
+        </div>
+    </footer>
+
+    <script>
+        // Handle client search form submission
+        document.getElementById('searchForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent form from submitting normally
+
+            const contact = document.getElementById('contact').value.trim();
+
+            // Retrieve the saved booking data from localStorage
+            const bookings = JSON.parse(localStorage.getItem('allBookings')) || [];
+
+            // Search for the booking by email or phone
+            const foundBooking = bookings.find(booking => booking.email === contact || booking.phone === contact);
+
+            // Display the booking details if found
+            const detailsContainer = document.getElementById('details-container');
+            detailsContainer.innerHTML = ''; // Clear any previous details
+
+            if (foundBooking) {
+                detailsContainer.innerHTML = `
+                    <p><strong>Room:</strong> ${foundBooking.roomName}</p>
+                    <p><strong>Price:</strong> ${foundBooking.price}</p>
+                    <p><strong>Description:</strong> ${foundBooking.description}</p>
+                    <p><strong>Start Date:</strong> ${foundBooking.startDate}</p>
+                    <p><strong>End Date:</strong> ${foundBooking.endDate}</p>
+                    <p><strong>Email:</strong> ${foundBooking.email}</p>
+                `;
+            } else {
+                detailsContainer.innerHTML = '<p>No booking found for the provided email or phone number.</p>';
+            }
+        });
+    </script>
+
+</body>
+</html>

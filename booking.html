@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Your Room</title>
+    <link rel="stylesheet" href="form.css"> <!-- Link to the form-specific CSS -->
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>Booking Form</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Back to Rooms</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="booking-form" class="booking-form">
+        <div class="container">
+            <h2>Book Your Room</h2>
+            <form id="form">
+                <label for="room-name">Room:</label>
+                <input type="text" id="room-name" name="room-name" readonly><br>
+
+                <label for="price">Price:</label>
+                <input type="text" id="price" name="price" readonly><br>
+
+                <label for="description">Description:</label>
+                <textarea id="description" name="description" readonly></textarea><br>
+
+                <label for="name">Your Name:</label>
+                <input type="text" id="name" name="name" required><br>
+				
+				<label for="phone">Your Phone Number:</label>
+                <input type="tel" id="phone" name="phone" required><br>
+
+                <label for="email">Your Email:</label>
+                <input type="email" id="email" name="email" required><br>
+
+                <label for="dates">Booking Dates:</label>
+                <input type="date" id="start-date" name="start-date" required>
+                to
+                <input type="date" id="end-date" name="end-date" required><br>
+
+                <button type="submit">Book Now</button>
+                <button type="button" onclick="window.location.href='index.html'">Cancel</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 House Rental System</p>
+        </div>
+    </footer>
+
+    <script>
+        // Capture room details from URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        document.getElementById('room-name').value = urlParams.get('room-name');
+        document.getElementById('price').value = urlParams.get('price');
+        document.getElementById('description').value = urlParams.get('description');
+
+        // Handle the form submission and save the data to localStorage
+        document.getElementById('form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent form from submitting in the traditional way
+            
+            const bookingData = {
+                roomName: document.getElementById('room-name').value,
+                price: document.getElementById('price').value,
+                description: document.getElementById('description').value,
+                name: document.getElementById('name').value,
+				phone: document.getElementById('phone').value,
+                email: document.getElementById('email').value,
+                startDate: document.getElementById('start-date').value,
+                endDate: document.getElementById('end-date').value
+            };
+
+// Retrieve existing bookings from localStorage or initialize an empty array if none exists
+    let allBookings = JSON.parse(localStorage.getItem('allBookings')) || [];
+	// Add the new booking to the list
+    allBookings.push(bookingData);
+	
+            // Save the booking data to localStorage
+             localStorage.setItem('allBookings', JSON.stringify(allBookings));
+
+            // Provide feedback to the user
+            alert('Your booking has been saved!');
+            // Optionally, redirect to a confirmation page or another page
+            window.location.href = 'confirmation.html';  // Example redirection to a confirmation page
+        });
+    </script>
+
+</body>
+</html>

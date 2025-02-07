@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>House Rental System</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header>
+    <div class="container">
+        <h1>House Rental System</h1>
+        <nav>
+            <div class="hamburger-menu" id="hamburger-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <ul id="nav-links">
+                <li><a href="#rooms">Rooms</a></li>
+                <li><a href="#location">Location</a></li>
+                <li><a href="#security">Security</a></li>
+                <li><a href="view-booking.html">Clients</a></li>
+                <li><a href="admin-login.html">Admin</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<script>
+// script.js (add this to handle the toggle of the menu and hamburger animation)
+document.getElementById('hamburger-menu').addEventListener('click', function() {
+    const navLinks = document.getElementById('nav-links');
+    const hamburgerMenu = document.getElementById('hamburger-menu');
+    
+    // Toggle the navigation links
+    navLinks.classList.toggle('active');
+    
+    // Toggle the hamburger icon animation
+    hamburgerMenu.classList.toggle('open');
+});
+
+</script>
+
+    <section id="rooms" class="room-section">
+        <div class="container">
+            <h2>Available Rooms</h2>
+            <div class="room" data-room-name="Room 1" data-price="M5000/month" data-description="A spacious room with a beautiful view." onclick="redirectToBooking(this)">
+                <img src="room1.jpeg" alt="Room 1">
+                <div class="room-info">
+                    <h3>Room 1</h3>
+                    <p>A spacious room with a beautiful view.</p>
+                    <p class="price">M5000/month</p>
+                </div>
+            </div>
+            <div class="room" data-room-name="Room 2" data-price="M6000/month" data-description="Cozy room with modern amenities." onclick="redirectToBooking(this)">
+                <img src="room2.jpeg" alt="Room 2">
+                <div class="room-info">
+                    <h3>Room 2</h3>
+                    <p>Cozy room with modern amenities.</p>
+                    <p class="price">M6000/month</p>
+                </div>
+            </div>
+			
+			<div class="room" data-room-name="Room 3" data-price="M2500/month" data-description="Small comfortable housing." onclick="redirectToBooking(this)">
+                <img src="room4.jpeg" alt="Room 3">
+                <div class="room-info">
+                    <h3>Room 3</h3>
+                    <p>Small comfortable housing.</p>
+                    <p class="price">M2500/month</p>
+                </div>
+            </div>
+            <!-- Add more rooms as needed -->
+        </div>
+    </section>
+
+    <section id="location" class="location-section">
+        <div class="container">
+            <h2>Location</h2>
+            <p>Our rental properties are located in the heart of the city, providing easy access to shopping, restaurants, and transport links.</p>
+            <div id="map">
+                <!-- A simple map could be embedded here if you want to. For now, just text. -->
+                <p>Location: 123 City Center, Main Street</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="security" class="security-section">
+        <div class="container">
+            <h2>Security Measures</h2>
+            <ul>
+                <li>24/7 Surveillance cameras in common areas.</li>
+                <li>Secure entry with keycard access.</li>
+                <li>On-site security personnel.</li>
+            </ul>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 House Rental System</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+	
+	<script>
+        // Redirect to the booking page with room details as URL parameters
+        function redirectToBooking(roomElement) {
+            var roomName = roomElement.getAttribute('data-room-name');
+            var price = roomElement.getAttribute('data-price');
+            var description = roomElement.getAttribute('data-description');
+
+            var url = 'booking.html?room-name=' + encodeURIComponent(roomName) +
+                      '&price=' + encodeURIComponent(price) +
+                      '&description=' + encodeURIComponent(description);
+
+            window.location.href = url;
+        }
+    </script>
+</body>
+</html>

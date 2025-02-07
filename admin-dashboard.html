@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Admin dashboard specific CSS -->
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>Admin Dashboard</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Back to Rooms</a></li>
+                    <li><a href="admin-login.html">Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="bookings" class="bookings-section">
+        <div class="container">
+            <h2>Client Bookings</h2>
+            <table id="bookingsTable">
+                <thead>
+                    <tr>
+                        <th>Client Name</th>
+                        <th>Room</th>
+                        <th>Price</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Email</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Client bookings will be populated here -->
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 House Rental System</p>
+        </div>
+    </footer>
+
+    <script>
+// script.js (inside admin-dashboard page)
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Retrieve the saved booking data from localStorage
+    const bookings = JSON.parse(localStorage.getItem('allBookings')) || [];
+
+    const bookingsTable = document.getElementById('bookingsTable').getElementsByTagName('tbody')[0];
+
+    if (bookings.length > 0) {
+        // Populate the table with client bookings
+        bookings.forEach(booking => {
+            const row = bookingsTable.insertRow();
+            row.innerHTML = `
+                <td>${booking.name}</td>
+                <td>${booking.roomName}</td>
+                <td>${booking.price}</td>
+                <td>${booking.startDate}</td>
+                <td>${booking.endDate}</td>
+                <td>${booking.email}</td>
+            `;
+        });
+    } else {
+        // If no bookings exist, show a message
+        const row = bookingsTable.insertRow();
+        row.innerHTML = '<td colspan="6">No bookings found.</td>';
+    }
+});
+
+    </script>
+
+</body>
+</html>
